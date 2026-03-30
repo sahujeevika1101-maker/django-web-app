@@ -1,0 +1,17 @@
+<h1>Dashboard</h1>
+
+<a href="{% url 'create' %}">Create New Note</a>
+
+<ul>
+{% for item in items %}
+    <li>
+        {{ item.title }} |
+        <a href="{% url 'update' item.id %}">Edit</a> |
+        <a href="{% url 'delete' item.id %}">Delete</a>
+    </li>
+{% empty %}
+    <li>No notes found.</li>
+{% endfor %}
+</ul>
+
+<p><a href="{% url 'logout' %}">Logout</a></p>
