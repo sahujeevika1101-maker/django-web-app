@@ -55,13 +55,11 @@ def create_view(request):
     return render(request, "create.html")
 
 def update_view(request, pk):
-    if not request.user.is_authenticated:
-        return redirect("login")
-
-    item = get_object_or_404(Item, id=pk, user=request.user)
+    item = Item.objects.get(id=pk, user=request.user)
 
     if request.method == "POST":
         item.title = request.POST.get("title")
+        item.content = request.POST.get("content")
         item.save()
         return redirect("dashboard")
 

@@ -34,3 +34,33 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name : Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AWS_EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+        
+      - name: Deploy to aws
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.AWS_EC2_IP }}
+          username: ${{ secrets.AWS_EC2_USER }}
+          key: ${{ secrets.AWS_EC2_KEY }}
+
+        script: |
+          cd /home/ubuntu/personal_expense_tracker
+          # we need to pull our code.
+          git pull origin main
+
+          # we need to activate ur env
+          source .env/bin/activate
+
+          # we need to install our requirements
+          pip install -r requirements.txt
+
+          # we need to run our migrations and migrate
+          python3 manage.py migrate
+          
+          # restart gunicorn to refresh the server
+          sudo systemctl restart gunicorn
