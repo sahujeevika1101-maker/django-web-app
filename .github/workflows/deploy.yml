@@ -51,7 +51,7 @@ jobs:
 
           git pull origin main
 
-          pip install -r requirements.txt
+          pip install -r req.txt
 
           cd /home/ubuntu/django-web-app/UserAccount/
           python manage.py migrate
