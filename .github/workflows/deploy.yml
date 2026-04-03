@@ -58,3 +58,4 @@ jobs:
 
           sudo supervisorctl restart all
           sudo systemctl restart nginx
+          EOF
