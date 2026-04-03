@@ -19,7 +19,6 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-<<<<<<< HEAD
           echo Add other actions to build,
           echo test, and deploy your project.
 
@@ -52,21 +51,3 @@ jobs:
           
           # restart gunicorn to refresh the server
           sudo systemctl restart gunicorn
-=======
-          # this is used to connect with ec2 via ssh 
-          ssh -o StrictHostKeyChecking=no ${{ secrets.AWS_EC2_USER }}@${{ secrets.AWS_EC2_IP }} << 'EOF'
-
-          cd /home/ubuntu/django-web-app
-
-          source env/bin/activate
-
-          git pull origin main
-
-           cd /home/ubuntu/django-web-app/UserAccount
-           pip install -r req.txt
-
-          sudo supervisorctl restart all
-
-          EOF
-      
->>>>>>> 187f3ada7dbb9ce3aab4f62262870b2988d8d560
